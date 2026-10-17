@@ -36,6 +36,14 @@ SHEETS = [
 ]
 
 
+CUR = {"code": None, "sheets": None}
+
+
+def set_doc(code=None, sheets=None):
+    """Переключает шифр и перечень листов для штампа (для других разделов)."""
+    CUR["code"], CUR["sheets"] = code, sheets
+
+
 def new_sheet(n, title):
     fig = plt.figure(figsize=(W / 25.4, H / 25.4))
     ax = fig.add_axes([0, 0, 1, 1])
@@ -73,7 +81,7 @@ def stamp(ax, n, title, full):
     # правая часть
     xr = x0 + 65
     ax.plot([xr, x0 + 185], [y0 + h - 15, y0 + h - 15], lw=0.8, c="k")
-    ax.text(xr + 60, y0 + h - 7.5, PROJECT["code"], ha="center", va="center", fontsize=10,
+    ax.text(xr + 60, y0 + h - 7.5, CUR["code"] or PROJECT["code"], ha="center", va="center", fontsize=10,
             weight="bold")
     if full:
         ax.plot([xr, x0 + 185], [y0 + h - 30, y0 + h - 30], lw=0.8, c="k")
@@ -91,7 +99,7 @@ def stamp(ax, n, title, full):
     ax.text(xr + 77.5, yb - 8.5, PROJECT["stage"], ha="center", fontsize=6)
     ax.text(xr + 92.5, yb - 8.5, str(n), ha="center", fontsize=6)
     if n == 1:
-        ax.text(xr + 110, yb - 8.5, str(len(SHEETS)), ha="center", fontsize=6)
+        ax.text(xr + 110, yb - 8.5, str(len(CUR["sheets"] or SHEETS)), ha="center", fontsize=6)
     ax.text(xr + 35, (y0 + yb) / 2, title, ha="center", va="center", fontsize=5.6, wrap=True)
     ax.text(W - 5, 2, "Формат А3", ha="right", fontsize=5)
 

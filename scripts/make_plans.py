@@ -139,7 +139,7 @@ def notes(ax, x, y, lines, width=48, fs=5.2):
 
 def title(ax, t):
     ax.text(LEFT + 3, TOP - 1, t, fontsize=8, weight="bold", va="top",
-            bbox=dict(fc="white", ec="none", pad=0.5))
+            bbox=dict(fc="white", ec="none", pad=0.5), zorder=20)
 
 
 def ahu_title(q, d):
