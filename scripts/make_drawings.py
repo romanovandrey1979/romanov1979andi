@@ -345,13 +345,14 @@ def sys_scheme(pdf, n, title, sysname, color, rooms2, rooms1, key):
     # стояк
     d1, v1 = duct_d(sum1, 4.0)
     ax.plot([xr, xr], [ymain, 110], c=color, lw=1.8)
-    ax.text(xr + 1.5, 190, f"Стояк в вент.\nкоробе Ø{d1}\nL={sum1} м³/ч\n(компенсатор\nусадки)",
+    rk = "РК1, РК3" if key == "sup" else "РК2, РК4"
+    ax.text(xr + 1.5, 190, f"Стояки в коробах\nВК-1, ВК-4\nΣL={sum1} м³/ч\n(компенсаторы\nусадки)",
             fontsize=5.4, color=color)
     # коллекторы 1 этажа
     ntubes = sum(branch_info(r, r[key], 1)[1] for r in rooms1)
     nk = math.ceil(ntubes / 10)
     ax.add_patch(Rectangle((xr - 6, 102), 12, 8, fc="w", ec="k", lw=0.6))
-    ax.text(xr, 106, f"РК×{nk}", ha="center", va="center", fontsize=4.6)
+    ax.text(xr, 106, rk, ha="center", va="center", fontsize=4.2)
     ax.text(xr - 6, 99, f"{ntubes} лин. Ø90", fontsize=5.2, color=color)
     # помещения 1 этажа
     n1 = len(rooms1)
