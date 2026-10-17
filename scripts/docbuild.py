@@ -86,6 +86,9 @@ class Doc:
                 from PIL import Image as PI
                 w, h = PI.open(b[1]).size
                 wmm = min(b[2] * mm, avail)
+                hmax = size[1] - 30 * mm - 30 * mm
+                if wmm * h / w > hmax:
+                    wmm = hmax * w / h
                 s.append(Image(b[1], width=wmm, height=wmm * h / w))
                 s.append(Spacer(1, 4))
             elif k == "pb":

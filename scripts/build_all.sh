@@ -14,3 +14,5 @@ mv "$R/_reports/291-ТТР Теплотехнический расчёт.pdf" "$
 mv "$R/_reports/291-ПОС Организация строительства и график.pdf" "$R/ПОС/"
 mv "$R/_reports/Бюджет строительства — Берта Ромарио."* "$R/Бюджет/"
 rmdir "$R/_reports"
+mkdir -p "$R/Заключение"
+FIG=${FIG:-review_fig} SCRATCH=${SCRATCH:-/tmp} python3 make_review.py "$R/Заключение"
