@@ -388,8 +388,7 @@ def report():
         if c == "291-НС":
             rows = [("Статья", "Мин., тыс. ₽", "Макс., тыс. ₽")]
             for n, lo, hi, tag in NS:
-                lbl = n + (" — этап 2" if tag == GAS else "")
-                rows.append((lbl, fk(lo), fk(hi)))
+                rows.append((n, fk(lo), fk(hi)))
             rows.append(("Итого этап 1 (без газа и КНС)", fk(t["total"][0]), fk(t["total"][1])))
             d.table(rows, [6, 1.3, 1.3], bold_last=True)
             d.small("Наружные сети — предварительно, до ТУ и топосъёмки. Длины по ведомости "
@@ -526,8 +525,7 @@ def to_csv(T):
         w.writerow([f"{c} {TITLES[c]}".upper(), k(t["total"][0]), k(t["total"][1]), g])
         if c == "291-НС":
             for n, lo, hi, tag in NS:
-                w.writerow(["   " + n + {GAS: " (этап 2)", "option": " (опция)"}.get(tag, ""),
-                            k(lo), k(hi), ""])
+                w.writerow(["   " + n, k(lo), k(hi), ""])
         else:
             for n, lo, hi in t["lines"]:
                 w.writerow(["   " + n, k(lo), k(hi), ""])
