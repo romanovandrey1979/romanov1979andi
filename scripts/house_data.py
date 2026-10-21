@@ -46,8 +46,8 @@ CONSTRUCTIONS = {
                  "приведённая: вата λ=0,042 / стенка балки, доля 6 %"),
                 ("Минеральная вата (контрутепление)", 0.050, 0.042, "")],
         a_in=8.7, a_out=23.0, r=0.92, req=(0.00045, 1.9), mp=0.8),
-    "window": dict(name="Окна и витражи — двухкамерный энергосберегающий стеклопакет",
-                   R=0.65, req_table=[(4000, 0.45), (6000, 0.6)]),
+    "window": dict(name="Окна и витражи — двухкамерный энергосберегающий стеклопакет (Schüco / Alutech)",
+                   R=0.8, req=(0.00005, 0.3)),
 }
 
 
@@ -77,9 +77,6 @@ def R0(key):
 
 def R_req(key):
     c = CONSTRUCTIONS[key]
-    if key == "window":
-        (g1, r1), (g2, r2) = c["req_table"]
-        return r1 + (GSOP - g1) / (g2 - g1) * (r2 - r1)
     a, b = c["req"]
     return a * GSOP + b
 
@@ -294,10 +291,13 @@ def devices(plan):
 
 
 def boiler_sizing(losses):
+    """Котельная по решению заказчика 18.10 (вариант А): пеллеты + электрокотёл, газ — 2028."""
+    import passport as P
     q_heat = sum(r["q"] for r in losses) / 1000
-    q_dhw = 30.0      # кВт, бойлер косвенного нагрева 300 л с приоритетом (подогрев ≈ 35 мин)
-    return dict(q_heat=q_heat, q_dhw=q_dhw, pellet=50, electric=24, gas=50, buffer=1000,
-                dhw=300)
+    b = P.BOILER
+    return dict(q_heat=q_heat, q_dhw=b["dhw_coil_kw"], pellet=b["pellet_kw"],
+                electric=b["electric_kw"], gas=b["gas_kw"], buffer=b["buffer_l"], dhw=b["dhw_l"],
+                exp_tank=b["exp_tank_l"])
 
 
 if __name__ == "__main__":
