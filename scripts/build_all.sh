@@ -23,4 +23,5 @@ python3 make_eom.py "$R/ЭОМ/291-ЭОМ Электрооборудование
 python3 make_ss.py "$R/СС/291-СС Слаботочные системы.pdf"
 python3 make_nss.py "$R/НС/291-НС Наружные сети — предварительная схема.pdf"
 SCRATCH=${SCRATCH:-/tmp} python3 make_holes.py "$R/Задание Строй Хауз"
+python3 make_answers.py "$R/Заключение"
 python3 make_project_list.py "$R/Управление проектом/Перечень проектов — дом Берта Ромарио.pdf"
