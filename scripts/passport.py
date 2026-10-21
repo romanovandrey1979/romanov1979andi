@@ -104,5 +104,4 @@ DATES = dict(
     contractor_finish="13.06.2027", penetrations="до 11.01.2027", design_start="16.11.2026",
     design_full="15.02.2027", move_in="22.12.2027", gas="2028",
 )
-CONTRACT = dict(number="№ 26/10-06/1 от 06.10.2026", price_signed=43_500_000, price_agreed=42_000_000,
-                note="42,0 млн — устная договорённость; закрепить допсоглашением")
+CONTRACT = dict(number="№ 26/10-06/1 от 06.10.2026")  # цена — в бюджетных файлах, не в коде
