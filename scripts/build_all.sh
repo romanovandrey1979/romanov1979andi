@@ -10,6 +10,7 @@ python3 make_ov.py "$R/ОВ/291-ОВ Отопление и котельная.pd
 python3 make_vk.py "$R/ВК/291-ВК Водоснабжение и канализация.pdf"
 python3 make_mzps.py "$R/МЗ.ПС/291-МЗ.ПС Молниезащита, заземление, пожарная сигнализация.pdf"
 SCRATCH=${SCRATCH:-/tmp} python3 make_rd_budget.py "$R/Бюджет"
+SCRATCH=${SCRATCH:-/tmp} python3 make_prefinish.py "$R/Бюджет"
 SCRATCH=${SCRATCH:-/tmp} python3 make_reports.py "$R/_reports"
 mv "$R/_reports/291-ТТР Теплотехнический расчёт.pdf" "$R/ТТР/"
 mv "$R/_reports/291-ПОС Организация строительства и график.pdf" "$R/ПОС/"

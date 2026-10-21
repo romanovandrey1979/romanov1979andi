@@ -267,8 +267,9 @@ def section(code):
     return rows
 
 
-def totals(code):
-    """Итоги раздела по статьям: материалы, монтаж, расходники, ПНР (этап 1 и этап 2 отдельно)."""
+def totals(code, exclude=()):
+    """Итоги раздела по статьям: материалы, монтаж, расходники, ПНР (этап 1 и этап 2 отдельно).
+    exclude — начала наименований позиций, которые считаются отдельным блоком (например, свет)."""
     if code == "291-НС":
         lines = [(n, lo, hi) for n, lo, hi, t in NS if t is None]
         st2 = [(n, lo, hi) for n, lo, hi, t in NS if t == GAS]
@@ -277,7 +278,7 @@ def totals(code):
         return dict(lines=[("Сети и подключения (материалы и работы)", s(lines, 1), s(lines, 2))],
                     total=(s(lines, 1), s(lines, 2)), gas=(s(st2, 1), s(st2, 2)),
                     option=(s(opt, 1), s(opt, 2)), equip=(0, 0))
-    rows = section(code)
+    rows = [r for r in section(code) if not r["name"].startswith(tuple(exclude))]
     w = WORK[code]
     st1 = [r for r in rows if r["tag"] is None]
     st2 = [r for r in rows if r["tag"] == GAS]
