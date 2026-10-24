@@ -23,17 +23,17 @@ def fig_slab(path):
     fig, ax = plt.subplots(figsize=(10, 4.2))
     ax.set_aspect("equal"); ax.axis("off")
     # плита и два ребра (мм)
-    ax.add_patch(Rectangle((0, 400), 5000, 200, fc=CONC, ec=K))
+    ax.add_patch(Rectangle((0, 350), 5000, 250, fc=CONC, ec=K))
     for x in (1100, 3600):
-        ax.add_patch(Rectangle((x, 0), 300, 400, fc=CONC, ec=K))
-        for dx in (60, 150, 240):
+        ax.add_patch(Rectangle((x, 0), 300, 350, fc=CONC, ec=K))
+        for dx in [60 + i * 180 / max(s['bars'] - 1, 1) for i in range(s['bars'])]:
             ax.add_patch(plt.Circle((x + dx, 55), 22, color=RED))
         ax.add_patch(Rectangle((x + 30, 30), 240, 540, fill=False, ec=RED, lw=0.8, ls="--"))
-    ax.plot([0, 5000], [560, 560], c=RED, lw=0.8); ax.plot([0, 5000], [440, 440], c=RED, lw=0.8)
+    ax.plot([0, 5000], [560, 560], c=RED, lw=0.8); ax.plot([0, 5000], [390, 390], c=RED, lw=0.8)
     ax.add_patch(Rectangle((0, 600), 5000, 70, fc="#ddd", ec=K, lw=0.5))
     ax.text(5050, 630, "стяжка 70 + звукоизоляция + пол", fontsize=8, va="center")
-    ax.text(5050, 500, "плита 200, В25, А500: сетки Ø10 шаг 200 верх/низ", fontsize=8, va="center")
-    ax.text(5050, 200, f"ребро 300×600 (от низа плиты 400), шаг {2500} мм;\nнижняя арматура "
+    ax.text(5050, 500, "плита 250 (по ЭП; на части — 200), В25, А500: сетки Ø10 шаг 200", fontsize=8, va="center")
+    ax.text(5050, 200, f"ребро 300×600 (от низа плиты 350), шаг {2500} мм;\nнижняя арматура "
             f"{s['bars']}Ø22 (As = {s['bars'] * 380:.0f} ≥ {s['As']:.0f} мм²),\nхомуты Ø8 шаг 150/300; "
             f"защитный слой до оси 45 мм (REI 150)", fontsize=8, va="center")
     for x0, x1, y, t in [(1250, 3750, -150, "2 500 — шаг рёбер")]:
@@ -62,7 +62,7 @@ def fig_pile(path):
     ax.add_patch(Rectangle((0, 730), 400, 1300, fc="#f2f2f2", ec=K, hatch="..", lw=0.6))
     ax.add_patch(Rectangle((-120, 730), 120, 1300, fc="#b38b59", ec=K, lw=0.4))
     ax.add_patch(Rectangle((-220, 250), 100, 650, fc=INS, ec=K, lw=0.4))
-    ax.text(-1700, 1400, "газобетон D500\n400 + вентфасад", fontsize=8)
+    ax.text(-1700, 1400, "газобетон D400\n400 + вентфасад", fontsize=8)
     ax.text(-1700, 550, "ЭППС 100\nпо торцу", fontsize=8)
     ax.text(5100, 800, "плита 300, В25 W8 F150 — пол 1 этажа\n(топпинг в гаражах, без цокольного перекрытия)", fontsize=8, va="center")
     ax.text(5100, 470, "ЭППС 100 + гидроизоляция 2 слоя", fontsize=8, va="center")
@@ -102,7 +102,7 @@ def fig_boiler(path):
         _ar(ax, (44, 28), (56, y + 0.5), RED)
     ax.text(50, 50.5, f"Расчётные теплопотери ≈ {hl:.0f} кВт (−25 °C); жилая часть +20, спортзал +18, гаражи и эллинг +5",
             ha="center", fontsize=8)
-    ax.set_title("БЭ-ОВ. Принципиальная схема котельной (пом. 014, 21,48 м²)", fontsize=10)
+    ax.set_title("БЭ-ОВ. Принципиальная схема котельной (пом. 011, 22,76 м²)", fontsize=10)
     return _save(fig, path)
 
 
